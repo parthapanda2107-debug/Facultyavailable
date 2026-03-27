@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIST Faculty Appointments</title>
+    <meta name="description" content="Secure portal to view and post faculty free times at NIST.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="student-view">
+    <div class="background-elements">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-wrapper">
+        <div class="card login-card">
+            <h2 style="text-align: center; margin-bottom: 0;">Portal Access</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">Authenticate to continue</p>
+            
+            <div class="login-tabs">
+                <button id="tab-student" class="tab-btn active">Student List</button>
+                <button id="tab-faculty" class="tab-btn">Faculty Login</button>
+            </div>
+            
+            <!-- Student Form -->
+            <form id="student-login-form" class="login-form active">
+                <div class="input-group">
+                    <input type="text" id="rollNumber" name="rollNumber" required placeholder=" " autocomplete="off">
+                    <label for="rollNumber">Roll Number (e.g. 20CS001)</label>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <select id="branch" name="branch" required>
+                            <option value="" disabled selected hidden>Branch</option>
+                            <option value="CSE">CSE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="ME">ME</option>
+                        </select>
+                        <svg class="select-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="year" name="year" required placeholder=" " min="1" max="4" autocomplete="off">
+                        <label for="year">Year (1-4)</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn"><span class="btn-text">Enter Portal</span></button>
+                <div id="student-login-msg" class="form-msg"></div>
+            </form>
+
+            <!-- Faculty Form -->
+            <form id="faculty-login-form" class="login-form">
+                <div class="input-group">
+                    <input type="text" id="facName" name="facultyName" required placeholder=" " autocomplete="name">
+                    <label for="facName">Faculty Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="secretCode" name="secretCode" required placeholder=" ">
+                    <label for="secretCode">Secret Code</label>
+                </div>
+                <button type="submit" class="submit-btn"><span class="btn-text">Authenticate Faculty</span></button>
+                <div id="faculty-login-msg" class="form-msg"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <main id="main-dashboard" class="container hidden">
+        <header class="app-header">
+            <h1>NIST Faculty <span>Appointments</span></h1>
+            <p>Post and discover faculty free time across the campus.</p>
+            <div style="margin-top: 1rem;">
+                <button id="logout-btn" class="role-btn">Logout / Exit</button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <section class="card form-container">
+                <h2>Post Free Time</h2>
+                <form id="freetime-form">
+                    <div class="input-group">
+                        <input type="text" id="facultyName" name="facultyName" required placeholder=" " autocomplete="off" readonly>
+                        <label for="facultyName">Faculty Name</label>
+                    </div>
+                    
+                    <div class="input-row">
+                        <div class="input-group" style="flex: 1.2;">
+                            <input type="date" id="date" name="date" required>
+                            <label for="date" class="active-label">Date</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="time" id="startTime" name="startTime" required>
+                            <label for="startTime" class="active-label">From</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="time" id="endTime" name="endTime" required>
+                            <label for="endTime" class="active-label">To</label>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <select id="region" name="region" required>
+                                <option value="" disabled selected hidden>Select Region</option>
+                                <option value="LHC">LHC</option>
+                                <option value="Atrium">Atrium</option>
+                                <option value="TIFAC">TIFAC</option>
+                                <option value="Galleria">Galleria</option>
+                            </select>
+                            <svg class="select-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="roomNumber" name="roomNumber" required placeholder=" " autocomplete="off">
+                            <label for="roomNumber">Room Number</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span class="btn-text">Post Schedule</span>
+                        <div class="spinner" style="display: none;"></div>
+                    </button>
+                    <div id="form-msg" class="form-msg"></div>
+                </form>
+            </section>
+
+            <!-- AI CHAT ASSISTANT -->
+            <section class="card chat-container" id="student-chat-container">
+                <h2>AI Assistant</h2>
+                <div class="chat-window" id="chat-messages">
+                    <div class="message ai-message">
+                        Hello! Ask me when a faculty member is free, or who is available in places like the Atrium.
+                    </div>
+                </div>
+                <form id="chat-form" class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="e.g. When is Dr. Smith free?" required autocomplete="off">
+                    <button type="submit" class="icon-btn chat-submit-btn" aria-label="Send">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </form>
+            </section>
+
+            <section class="card list-container">
+                <div class="list-header">
+                    <h2>Available Free Times</h2>
+                    <div class="list-actions">
+                        <div class="search-container">
+                            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="search-input" placeholder="Search Faculty Name..." autocomplete="off">
+                        </div>
+                        <button id="refresh-btn" class="icon-btn" aria-label="Refresh list" title="Refresh">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="appointments-wrapper" id="freetimes-list">
+                    <!-- Loading skeleton -->
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
